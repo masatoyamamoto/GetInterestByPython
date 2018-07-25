@@ -1,1 +1,1 @@
-print "Hellow, Python"
+print("Hellow, Python")
