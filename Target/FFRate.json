@@ -1,0 +1,16 @@
+{
+    "Yield Curve":
+    {
+        "FF":"https://www.federalreserve.gov/feeds/Data/H15_H15_RIFSPFF_N.B.XML",
+        "M01":"https://www.federalreserve.gov/feeds/Data/H15_H15_RIFLGFCM01_N.B.XML",
+        "M03":"https://www.federalreserve.gov/feeds/Data/H15_H15_RIFLGFCM03_N.B.XML",
+        "M06":"https://www.federalreserve.gov/feeds/Data/H15_H15_RIFLGFCM06_N.B.XML",
+        "Y01":"https://www.federalreserve.gov/feeds/Data/H15_H15_RIFLGFCY01_N.B.XML",
+        "Y02":"https://www.federalreserve.gov/feeds/Data/H15_H15_RIFLGFCY02_N.B.XML",
+        "Y03":"https://www.federalreserve.gov/feeds/Data/H15_H15_RIFLGFCY03_N.B.XML",
+        "Y05":"https://www.federalreserve.gov/feeds/Data/H15_H15_RIFLGFCY05_N.B.XML",
+        "Y10":"https://www.federalreserve.gov/feeds/Data/H15_H15_RIFLGFCY10_N.B.XML",
+        "Y20":"https://www.federalreserve.gov/feeds/Data/H15_H15_RIFLGFCY20_N.B.XML",
+        "Y30":"https://www.federalreserve.gov/feeds/Data/H15_H15_RIFLGFCY30_N.B.XML"
+    }
+}

@@ -4,20 +4,18 @@ from bs4 import BeautifulSoup
 
 def get_date():
     _url = "https://www.federalreserve.gov/feeds/Data/H15_H15_RIFLGFCY30_N.B.XML"
-    _res = req.urlopen(url)
-    _soup = BeautifulSoup(_res, "lxml")
+    _res = req.urlopen(_url)
+    _soup = BeautifulSoup(_res, "xml")
     d = _soup.item
     return d.find("dc:date").string
 
 
 date_str = get_date()
 date_str = date_str[0:10]
-print(str)
+# print(str)
 
 
 class XMLProcess:
-    raw_data: str
-
     def __init__(self, _url):
         self.res = req.urlopen(_url)
         self.soup = BeautifulSoup(self.res, "lxml")
@@ -46,9 +44,9 @@ class XMLProcess:
 url = "https://www.federalreserve.gov/feeds/Data/H15_H15_RIFLGFCY30_N.B.XML"
 XML = XMLProcess(url)
 raw_date = XML.get_raw_data("dc:date")
-print(raw_date)
+# print(raw_date)
 str_date = XML.get_cut_data("dc:date", 0, 10)
-print(str_date)
+# print(str_date)
 interest_rate = XML.get_float_data("cb:value")
-print(interest_rate)
+# print(interest_rate)
 XML = None

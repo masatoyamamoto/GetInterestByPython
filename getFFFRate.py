@@ -1,48 +1,51 @@
 from time import sleep
-from modules import XMLprocess
+from modules import XMLProcess
 from modules import get_url
-
 import sqlite3
 
-class get_FFRate:
-    #アクセスマップの入ったファイルを指定
-    def __init__(self, path, filename, index):
-        #アクセスするURLのリストを取得
-        __scr = get_url.site_map(path, filename)
-        self.urlList = __scr.get_url(index)
 
-    #日付取得用の関数
+class GetFFRate:
+    # アクセスマップの入ったファイルを指定
+    def __init__(self, path, filename, index):
+        # アクセスするURLのリストを取得
+        __scr = get_url.site_map(path, filename)
+        self.url_list = __scr.get_url(index)
+
+    # 日付取得用の関数
     def get_date(self):
-        __XML = XMLprocess(self.urlList[0])
-        __strdate = __XML.get_cutedData("dc:date", 0, 10)
+        __XML = XMLProcess.XMLProcess(self.url_list[0])
+        __str_date = __XML.get_cut_data("dc:date", 0, 10)
         __XML = None
-        return __strdate
+        return __str_date
 
     def get_rate(self, url):
-        __XML = XMLprocess(url)
-        __rate = __XML.get_floatDate("cb:value")
+        __XML = XMLProcess.XMLProcess(url)
+        __rate = __XML.get_float_data("cb:value")
         __XML = None
         return __rate
 
-    #urlのリストに基づいてデータを取得していく
+    # urlのリストに基づいてデータを取得していく
     def get_list(self):
-        rateList = []
-        #日付をリストに入れる(主キーのつもり)
-        rateList.append(self.get_date())
+        __rate_list = list([])
+        # 日付をリストに入れる(主キー)
+        __rate_list.append(self.get_date())
 
-        for __url in self.urlList:
+        for __url in self.url_list:
             __rate = self.get_rate(__url)
-            rateList.append(__rate)
-            #1秒待つ
+            __rate_list.append(__rate)
+            # 1秒待つ
             sleep(1)
 
         __XML = None
-        return rateList
+        return __rate_list
 
-a = get_url.site_map("target", "siteMap.json")
+
+a = get_url.site_map("target", "FFRate.json")
 b = a.get_index()
-print(b)
+# print(b)
+
 for idx in b:
-        ff = get_FFRate("target", "siteMap.json", idx)
+    # 今後のためのテスト
+    ff = GetFFRate("target", "FFRate.json", idx)
 
 print(ff.get_list())

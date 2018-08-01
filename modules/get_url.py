@@ -1,54 +1,45 @@
 import json
 import os
 
-# 共通部分のインデックス
-idx0 = "static"
-# 個別の組み合わせ部分
-idx1 = "combination"
-# 前半の共通部分
-prefix = "prefix"
-# 後半の共通部分
-suffix = "suffix"
 
-
-class scrape_url:
-    def __init__(self, filename):
-        # __変数で擬似ローカル変数になる
+class site_map:
+    def __init__(self, path, filename):
         # ファイルのあるフォルダまでのパスを取得
-        __name = os.path.dirname(os.path.abspath(__name__))
+        __name = str(os.path.dirname(os.path.abspath(__name__)))
         # 変換対象のjsonファイルまでのパスを作成
-        __path = __name + '/target/' + filename
+        __path = __name + '/' + path + '/' + filename
         # 絶対パスに変換
-        __abspath = os.path.normpath(__path)
+        __abs_path = os.path.normpath(__path)
 
         # jsonファイルを開く
-        __f = open(__abspath, 'r')
-        __jsonData = json.load(__f)
+        self.f = open(__abs_path, 'r')
+        self.jsonData = json.load(self.f)
 
-        # urlの前半と後半の共通部分を取得
-        __prefix = __jsonData[idx0][prefix]
-        __suffix = __jsonData[idx0][suffix]
+        # 目次を取得
+        __index_list = self.jsonData.keys()
+        # dick_keyをリストに変換
+        self.index_list = list(__index_list)
 
-        # 個別項のインデックスを取得
+    def get_index(self):
+        return self.index_list
 
-        __indexList = __jsonData[idx1].keys()
-        # dict_keyをリストに変換
-        __indexList = list(__indexList)
-
+    def get_url(self, index):
         # 戻り値となるリストを作成
-        self.urlList = []
+        self.url_list = list([])
+        __secIndex = list(self.jsonData[index].keys())
+        for __key in __secIndex:
+            # サイトマップに含まれるURLを一つづつ取得
+            __url = self.jsonData[index][__key]
 
-        for __index in __indexList:
-            # インデックスごとの値を取得
-            __text = __jsonData[idx1][__index]
-
-            # FFRateのurlは"SP"+"FF"
-            __part = __text + __index
             # urlを生成してリストに
-            self.urlList.append(__prefix + __part + __suffix)
-        __f.close()
+            self.url_list.append(__url)
+        return self.url_list
 
-    def get_url(self):
-        return self.urlList
+    def __del__(self):
+        self.f.close()
 
-# TODO 3のURL自動生成をやる。
+
+# a = site_map("target", "FFRate.json")
+# b = a.get_index()
+# print(b)
+# print(a.get_url(b[0]))
