@@ -42,10 +42,9 @@ class GetFFRate:
 
 a = get_url.site_map("target", "FFRate.json")
 b = a.get_index()
-# print(b)
 
 for idx in b:
-    # 今後のためのテスト
+    # 満期ごとに表示
     ff = GetFFRate("target", "FFRate.json", idx)
 
 print(ff.get_list())
